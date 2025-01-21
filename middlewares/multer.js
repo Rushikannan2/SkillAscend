@@ -1,38 +1,20 @@
-import multer from 'multer'
+import multer from "multer";
 import { v4 as uuid } from "uuid";
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, "uploads");
+    cb(null, "uploads"); // Specify the upload folder
   },
   filename(req, file, cb) {
-    const id = uuid();
+    const id = uuid(); // Generate a unique ID using UUID
+    const extName = file.originalname.split(".").pop(); // Get file extension
 
-    const extName = file.originalname.split(".").pop();
-
+    // Correct string interpolation with backticks
     const fileName = `${id}.${extName}`;
 
-    cb(null, fileName);
+    cb(null, fileName); // Set the final file name
   },
 });
 
-export const uploadFiles = multer({ storage }).single("file");
-import multer from 'multer'
-import { v4 as uuid } from "uuid";
-
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, "uploads");
-  },
-  filename(req, file, cb) {
-    const id = uuid();
-
-    const extName = file.originalname.split(".").pop();
-
-    const fileName = `${id}.${extName}`;
-
-    cb(null, fileName);
-  },
-});
-
+// Set up multer to handle file uploads
 export const uploadFiles = multer({ storage }).single("file");
